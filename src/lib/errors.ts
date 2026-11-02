@@ -1,6 +1,6 @@
 export const ERROR_CODES = [
   "VALIDATION_ERROR", "UNAUTHENTICATED", "FORBIDDEN", "NOT_FOUND", "CONFLICT",
-  "LINK_EXPIRED", "RATE_LIMITED", "INTERNAL_ERROR",
+  "EMAIL_TAKEN", "LINK_EXPIRED", "RATE_LIMITED", "INTERNAL_ERROR",
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];
@@ -12,6 +12,7 @@ const statusByCode: Record<ErrorCode, number> = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   CONFLICT: 409,
+  EMAIL_TAKEN: 409,
   LINK_EXPIRED: 410,
   RATE_LIMITED: 429,
   INTERNAL_ERROR: 500,

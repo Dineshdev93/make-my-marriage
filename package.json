@@ -12,10 +12,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "mongoose": "^9.11.4",
     "next": "16.4.3",
+    "next-auth": "^5.0.0-beta.32",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "resend": "^6.37.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
@@ -25,6 +28,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.4.3",
+    "mongodb-memory-server": "^11.3.0",
     "prettier": "^3.9.10",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.0.0",
