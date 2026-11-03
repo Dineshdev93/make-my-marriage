@@ -15,3 +15,5 @@ A free wedding-planning workspace for Indian couples. This repository contains t
 - `npm run typecheck`
 - `npm test`
 - `npm run build`
+
+The auth service integration tests use `mongodb-memory-server`. On Windows, install the Microsoft Visual C++ Redistributable to run them, then set `RUN_MONGO_MEMORY_TESTS=1` before `npm test`.

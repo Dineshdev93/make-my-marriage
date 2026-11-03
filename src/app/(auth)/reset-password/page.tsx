@@ -1,1 +1,7 @@
-export default function ResetPasswordPage() { return <main className="p-8"><h1 className="text-3xl">Reset password</h1></main>; }
+import { AuthForm } from "@/components/auth/AuthForm";
+
+export default async function ResetPasswordPage({ searchParams }: { searchParams: Promise<{ token?: string | string[] }> }) {
+  const params = await searchParams;
+  const token = typeof params.token === "string" ? params.token : "";
+  return <AuthForm mode="reset-password" token={token} />;
+}

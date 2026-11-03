@@ -1,4 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/auth", () => ({ auth: vi.fn() }));
+
 import { assertEditor } from "./access";
 
 describe("assertEditor", () => {
