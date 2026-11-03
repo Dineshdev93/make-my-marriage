@@ -43,14 +43,14 @@ const pageTitles: Record<string, string> = {
   "/settings": "Wedding Settings",
 };
 
-function Logo({ collapsed = false }: { collapsed?: boolean }) {
+function Logo({ collapsed = false, mobile = false }: { collapsed?: boolean; mobile?: boolean }) {
   return (
     <div className={`flex min-w-0 items-center ${collapsed ? "justify-center" : "gap-2"}`}>
       <svg aria-hidden="true" className="h-7 w-9 shrink-0 text-primary" viewBox="0 0 40 28" fill="none">
         <circle cx="15" cy="14" r="10" stroke="currentColor" strokeWidth="1.4" />
         <circle cx="25" cy="14" r="10" stroke="currentColor" strokeWidth="1.4" />
       </svg>
-      {!collapsed ? <span className="hidden whitespace-nowrap font-heading text-lg tracking-tight lg:inline">Make My Marriage</span> : null}
+      {!collapsed ? <span className={`whitespace-nowrap font-heading text-lg tracking-tight ${mobile ? "inline" : "hidden lg:inline"}`}>Make My Marriage</span> : null}
     </div>
   );
 }
@@ -62,8 +62,8 @@ function SidebarContent({ collapsed, mobile, pathname, onCollapse, onNavigate }:
   onCollapse: () => void;
   onNavigate: () => void;
 }) {
-  const labelClass = collapsed ? "hidden" : "hidden lg:inline";
-  const groupClass = collapsed ? "hidden" : "mb-1 hidden px-2 pt-6 text-[11px] font-semibold uppercase tracking-widest text-muted lg:block";
+  const labelClass = collapsed ? "hidden" : mobile ? "inline" : "hidden lg:inline";
+  const groupClass = collapsed ? "hidden" : mobile ? "mb-1 px-2 pt-6 text-[11px] font-semibold uppercase tracking-widest text-muted" : "mb-1 hidden px-2 pt-6 text-[11px] font-semibold uppercase tracking-widest text-muted lg:block";
 
   function renderLink(item: NavItem) {
     const active = pathname === item.href;
@@ -85,7 +85,7 @@ function SidebarContent({ collapsed, mobile, pathname, onCollapse, onNavigate }:
   return (
     <>
       <header className={`relative flex h-20 shrink-0 items-center border-b border-border/70 px-5 ${collapsed ? "justify-center" : "justify-between"}`}>
-        <Logo collapsed={collapsed} />
+        <Logo collapsed={collapsed} mobile={mobile} />
         {mobile ? (
           <button aria-label="Close navigation" className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-background" onClick={onNavigate} type="button"><Icon name="close" /></button>
         ) : (
@@ -103,7 +103,7 @@ function SidebarContent({ collapsed, mobile, pathname, onCollapse, onNavigate }:
           {comingSoonItems.map((item) => (
             <div className={`flex min-h-10 min-w-0 items-center justify-between gap-2 overflow-hidden rounded-lg px-3 py-2 text-sm text-muted/70 ${collapsed ? "justify-center px-0" : ""}`} key={item.label} title={collapsed ? `${item.label} — soon` : undefined}>
               <span className="flex min-w-0 items-center gap-3"><Icon className="shrink-0" name={item.icon} size={20} /><span className={`truncate ${labelClass}`}>{item.label}</span></span>
-              {!collapsed ? <Pill className="hidden px-2 py-0.5 text-[10px] lg:inline-flex">Soon</Pill> : null}
+              {!collapsed ? <Pill className={`${mobile ? "inline-flex" : "hidden lg:inline-flex"} px-2 py-0.5 text-[10px]`}>Soon</Pill> : null}
             </div>
           ))}
         </div>
@@ -147,7 +147,7 @@ export function AppShell({ children, userName, wedding }: AppShellProps) {
           </div>
           <details className="relative ml-3 shrink-0">
             <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg p-1.5 hover:bg-card sm:gap-3">
-              <span className="hidden text-right sm:flex sm:flex-col"><span className="text-sm font-medium leading-5 text-foreground">{userName}</span><span className="text-xs leading-4 text-muted">Editor</span></span>
+              <span className="hidden max-w-32 text-right sm:flex sm:flex-col"><span className="max-w-32 truncate text-sm font-medium leading-5 text-foreground">{userName}</span><span className="text-xs leading-4 text-muted">Editor</span></span>
               <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-heading text-lg text-background">{userName.trim().charAt(0).toLocaleUpperCase() || "E"}</span>
               <Icon className="text-muted" name="chevron-down" size={16} />
             </summary>
