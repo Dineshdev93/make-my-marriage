@@ -1,19 +1,10 @@
 import { AppError } from "./errors";
+import type { AccessContext } from "./access-context";
+export { assertEditor } from "./access-context";
+export type { AccessContext } from "./access-context";
 import { auth } from "@/auth";
 import { connectToDatabase } from "./db";
 import { WeddingModel } from "@/modules/wedding/model";
-
-export interface AccessContext {
-  weddingId: string;
-  userId?: string;
-  role: "editor" | "viewer";
-}
-
-export function assertEditor(context: AccessContext): void {
-  if (context.role !== "editor") {
-    throw new AppError("FORBIDDEN", "Only wedding editors can make changes.");
-  }
-}
 
 export interface CurrentUser {
   id: string;

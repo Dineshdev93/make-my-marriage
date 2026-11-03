@@ -1,5 +1,6 @@
 import { model, models, Schema, Types } from "mongoose";
 import { isDateString } from "@/lib/dates";
+import { MAX_AMOUNT_PAISE } from "@/lib/money";
 
 export interface PartnerInvite {
   tokenHash: string;
@@ -38,7 +39,7 @@ const weddingSchema = new Schema<WeddingDocument>({
     required: true,
     validate: { validator: isDateString, message: "Wedding date must be a real date in YYYY-MM-DD format." },
   },
-  totalBudgetPaise: { type: Number, required: true, min: 100, max: 1_000_000_000_000, validate: Number.isSafeInteger },
+  totalBudgetPaise: { type: Number, required: true, min: 100, max: MAX_AMOUNT_PAISE, validate: Number.isSafeInteger },
   editorIds: {
     type: [{ type: Schema.Types.ObjectId, ref: "User" }],
     required: true,

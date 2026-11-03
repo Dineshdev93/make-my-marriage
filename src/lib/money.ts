@@ -1,11 +1,12 @@
-const MAX_RUPEES = 1_000_000_000;
+export const MAX_AMOUNT_RUPEES = 1_000_000_000;
+export const MAX_AMOUNT_PAISE = MAX_AMOUNT_RUPEES * 100;
 const INDIAN_GROUPED_INTEGER = /^(?:0|[1-9]\d*|[1-9]\d{0,2}(?:,\d{2})*,\d{3})$/;
 
 export function parseRupeesToPaise(input: string): number {
   const value = input.trim();
   if (!INDIAN_GROUPED_INTEGER.test(value)) throw new Error("Enter a valid whole-rupee amount.");
   const rupees = Number(value.replaceAll(",", ""));
-  if (!Number.isSafeInteger(rupees) || rupees <= 0 || rupees > MAX_RUPEES) {
+  if (!Number.isSafeInteger(rupees) || rupees <= 0 || rupees > MAX_AMOUNT_RUPEES) {
     throw new Error("Amount must be greater than zero and no more than ₹100 crore.");
   }
   return rupees * 100;
