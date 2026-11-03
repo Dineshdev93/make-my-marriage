@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { daysUntil, getTodayIST, isDateString, isOverdue } from "./dates";
+import { daysUntil, formatDisplayDate, getTodayIST, isDateString, isOverdue } from "./dates";
 
 describe("date helpers", () => {
   it("validates actual calendar dates", () => {
@@ -20,5 +20,10 @@ describe("date helpers", () => {
     expect(isOverdue("2025-01-01", false, now)).toBe(true);
     expect(isOverdue("2025-01-01", true, now)).toBe(false);
     expect(isOverdue("2025-01-02", false, now)).toBe(false);
+  });
+
+  it("formats date-only values without changing their calendar day", () => {
+    expect(formatDisplayDate("2027-03-12")).toBe("12 March 2027");
+    expect(() => formatDisplayDate("2027-02-30")).toThrow();
   });
 });
