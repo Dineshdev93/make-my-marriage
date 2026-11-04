@@ -5,6 +5,17 @@ export function isDateString(value: string): boolean {
   return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
 }
 
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+] as const;
+
+export function formatDisplayDate(dateString: string): string {
+  if (!isDateString(dateString)) throw new Error("Date must be a real calendar date in YYYY-MM-DD format.");
+  const [year, month, day] = dateString.split("-").map(Number);
+  return `${day} ${MONTH_NAMES[month - 1]} ${year}`;
+}
+
 function assertDateString(value: string): void {
   if (!isDateString(value)) throw new Error("Date must be a real calendar date in YYYY-MM-DD format.");
 }
