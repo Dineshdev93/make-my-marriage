@@ -1,17 +1,7 @@
 import { model, models, Schema, Types } from "mongoose";
 import { isDateString } from "@/lib/dates";
 import { MAX_AMOUNT_PAISE } from "@/lib/money";
-
-export const EXPENSE_CATEGORIES = [
-  "Venue",
-  "Catering",
-  "Decoration",
-  "Photography",
-  "Clothing and Jewellery",
-  "Other",
-] as const;
-
-export type ExpenseCategory = (typeof EXPENSE_CATEGORIES)[number];
+import { EXPENSE_CATEGORIES, type ExpenseCategory } from "./constants";
 
 export interface ExpenseDocument {
   _id: Types.ObjectId;
